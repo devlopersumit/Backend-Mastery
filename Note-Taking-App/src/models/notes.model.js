@@ -8,6 +8,12 @@ const notesSchema = new mongoose.Schema({
     },
     content:{
         type:String,
-        require:[true, "content is required"]
+        require:[true, "content is required"],
+        minLength:[20, "The Content Characters must be atleast 20"]
     }
-})
+}, {
+    timestamps:true
+});
+
+const Notes = mongoose.model("Notes", notesSchema);
+module.exports = Notes;
