@@ -9,7 +9,7 @@ const notesSchema = new mongoose.Schema({
     content:{
         type:String,
         require:[true, "content is required"],
-        minLength:[20, "The Content Characters must be atleast 20"]
+        minLength:[10, "The Content Characters must be atleast 20"]
     }
 }, {
     timestamps:true

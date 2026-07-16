@@ -88,7 +88,7 @@ const createNote = async (req, res) => {
 // Update a note by ID
 const updateNoteById = async (req, res) => {
     try {
-        const { ID } = req.params;
+        const { id } = req.params;
         const { title, content } = req.body;
 
         if (!title || typeof title !== 'string' || title.trim() === "" ||
@@ -100,7 +100,7 @@ const updateNoteById = async (req, res) => {
             });
         }
 
-        const updatedNote = await Notes.findByIdAndUpdate(ID, {
+        const updatedNote = await Notes.findByIdAndUpdate(id, {
             title: title.trim(),
             content: content.trim()
         }, { new: true });
@@ -128,9 +128,9 @@ const updateNoteById = async (req, res) => {
 // Delete a note by ID
 const deleteNoteById = async (req, res) => {
     try {
-        const { ID } = req.params;
+        const { id } = req.params;
 
-        const deletedNote = await Notes.findByIdAndDelete(ID);
+        const deletedNote = await Notes.findByIdAndDelete(id);
 
         if (!deletedNote) {
             return res.status(404).json({
