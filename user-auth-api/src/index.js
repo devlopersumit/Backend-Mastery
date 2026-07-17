@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors"
+import connectDB from "./config/db.js";
 
 dotenv.config();
 const app = express();
@@ -8,6 +9,9 @@ const app = express();
 //Built-in Middlewares
 app.use(express.json());
 app.use(cors());
+
+//Database Connection
+connectDB();
 
 //Welcome Route
 app.get("/", function(req, res){
