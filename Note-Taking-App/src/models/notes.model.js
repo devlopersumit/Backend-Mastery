@@ -2,17 +2,22 @@ const mongoose = require('mongoose');
 
 const notesSchema = new mongoose.Schema({
     title: {
-        type:String,
-        required:[true, "title is required"],
-        minLength:[5, "title length must be greater than 5 character"]
+        type: String,
+        required: [true, "title is required"],
+        minLength: [5, "title length must be greater than 5 character"]
     },
-    content:{
-        type:String,
-        require:[true, "content is required"],
-        minLength:[10, "The Content Characters must be atleast 20"]
+    content: {
+        type: String,
+        require: [true, "content is required"],
+        minLength: [10, "The Content Characters must be atleast 20"]
+    },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: [true, "User is required"]
     }
 }, {
-    timestamps:true
+    timestamps: true
 });
 
 const Notes = mongoose.model("Notes", notesSchema);

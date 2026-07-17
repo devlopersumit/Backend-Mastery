@@ -1,8 +1,11 @@
 const express = require("express");
 const { body } = require("express-validator");
 const { getAllNotes, createNote, updateNoteById, deleteNoteById, getNoteById } = require("../controllers/notes.controllers");
+const protect = require("../middleware/auth.middleware");
 
 const notesRouter = express.Router();
+
+notesRouter.use(protect);
 
 notesRouter.route("/")
     .get(getAllNotes)

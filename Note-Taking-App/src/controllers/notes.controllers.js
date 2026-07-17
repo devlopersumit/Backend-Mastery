@@ -3,7 +3,7 @@ const Notes = require("../models/notes.model")
 // Fetch all notes
 const getAllNotes = async (req, res) => {
     try {
-        const notes = await Notes.find();
+        const notes = await Notes.find({ user: req.user._id });
 
         if (!notes) {
             return res.status(404).json({
@@ -30,7 +30,7 @@ const getNoteById = async (req, res) => {
     try {
         const ID = req.params.id
 
-        const singleNote = await Notes.findById(ID);
+        const singleNote = await Notes.findOne({ _id: ID, user: req.user._id });
 
         if (!singleNote) {
             return res.status(404).json({
@@ -68,7 +68,8 @@ const createNote = async (req, res) => {
 
         const newNote = await Notes.create({
             title: title.trim(),
-            content: content.trim()
+            content: content.trim(),
+            user: req.user._id
         });
 
         return res.status(201).json({
@@ -100,7 +101,7 @@ const updateNoteById = async (req, res) => {
             });
         }
 
-        const updatedNote = await Notes.findByIdAndUpdate(id, {
+        const updatedNote = await Notes.findOneAndUpdate({ _id: id, user: req.user._id }, {
             title: title.trim(),
             content: content.trim()
         }, { new: true });
@@ -130,7 +131,7 @@ const deleteNoteById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const deletedNote = await Notes.findByIdAndDelete(id);
+        const deletedNote = await Notes.findOneAndDelete({ _id: id, user: req.user._id });
 
         if (!deletedNote) {
             return res.status(404).json({
