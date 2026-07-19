@@ -6,7 +6,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "firstname is required"],
         trim: true,
-        minLength: [3, 'firstname length must be atleast 3 character']
+        minLength: [3, 'First name must be at least 3 characters long'],
+        maxLength: [50, 'First name cannot exceed 50 characters']
     },
     lastName: {
         type: String,
@@ -55,8 +56,8 @@ userSchema.pre('save', async function (next) {
     }
 });
 
-userSchema.methods.comparePassword = async function(candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.comparePassword = async function (candidatePassword) {
+    return bcrypt.compare(candidatePassword, this.password);
 };
 
 const User = mongoose.model("User", userSchema);
