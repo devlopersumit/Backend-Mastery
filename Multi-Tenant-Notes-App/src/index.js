@@ -8,6 +8,11 @@ dotenv.config();
 
 const app = express();
 
+//built-in middlewares
+app.use(express.json());
+app.use(cors());
+app.use(cookieParser());
+
 //MongoDB database Connection
 connectMongoDB();
 
