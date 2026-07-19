@@ -2,10 +2,14 @@ import express from 'express';
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import { connectMongoDB } from './config/db.js';
 
 dotenv.config();
 
 const app = express();
+
+//MongoDB database Connection
+connectMongoDB();
 
 // Welcome Route
 app.get('/', (req, res) => {
