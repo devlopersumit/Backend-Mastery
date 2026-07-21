@@ -1,4 +1,6 @@
-const signupValidator = (req, res, next) => {
+
+//Signup Validator
+export const signupValidator = (req, res, next) => {
     const { firstName, lastName, email, password } = req.body || {};
     const errors = [];
 
@@ -40,7 +42,8 @@ const signupValidator = (req, res, next) => {
     next();
 };
 
-const loginValidator = (req, res, next) => {
+//Login Validator
+export const loginValidator = (req, res, next) => {
     const { email, password } = req.body || {};
     const errors = [];
 
@@ -65,5 +68,3 @@ const loginValidator = (req, res, next) => {
 
     next();
 };
-
-export { signupValidator, loginValidator };
