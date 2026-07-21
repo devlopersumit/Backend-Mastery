@@ -9,6 +9,14 @@ export const createNote = async (req, res) => {
             return res.status(401).json({ success: false, message: 'Unauthorized' });
         }
 
+        const existingNote = await Note.findOne({ title, content, user: userId });
+        if (existingNote) {
+            return res.status(409).json({
+                success: false,
+                message: 'A note with the same title and content already exists for this user'
+            });
+        }
+
         const note = await Note.create({ title, content, user: userId });
 
         return res.status(201).json({
