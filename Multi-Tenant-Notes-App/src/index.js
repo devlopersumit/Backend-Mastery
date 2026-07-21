@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { connectMongoDB } from './config/db.js';
+import authRouter from './routes/auth.routes.js';
 
 dotenv.config();
 
@@ -13,13 +14,11 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
-//MongoDB database Connection
+//MongoDB Database Connection
 connectMongoDB();
 
-// Welcome Route
-app.get('/', (req, res) => {
-    res.send("Welcome to the Multi-Tenant Notes App server");
-} );
+//Auth Routes
+app.use('/api/auth', authRouter);
 
 const port = process.env.port || 8000;
 
