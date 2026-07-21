@@ -68,3 +68,42 @@ export const loginValidator = (req, res, next) => {
 
     next();
 };
+
+// Notes Validator
+export const noteValidator = (req, res, next) => {
+    const { title, content } = req.body || {};
+    const errors = [];
+
+    if (!title || typeof title !== 'string' || title.trim() === '') {
+        errors.push('Title is required');
+    } else {
+        const trimmedTitle = title.trim();
+        if (trimmedTitle.length < 5) {
+            errors.push('Title must be at least 5 characters long');
+        }
+        if (trimmedTitle.length > 100) {
+            errors.push('Title cannot exceed 100 characters');
+        }
+    }
+
+    if (!content || typeof content !== 'string' || content.trim() === '') {
+        errors.push('Content is required');
+    } else {
+        const trimmedContent = content.trim();
+        if (trimmedContent.length > 1000) {
+            errors.push('Content cannot exceed 1000 characters');
+        }
+    }
+
+    if (errors.length > 0) {
+        return res.status(400).json({ success: false, errors });
+    }
+
+    req.body = {
+        title: title.trim(),
+        content: content.trim()
+    };
+
+    next();
+};
+

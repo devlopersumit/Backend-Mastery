@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { connectMongoDB } from './config/db.js';
 import authRouter from './routes/auth.routes.js';
+import notesRouter from './routes/notes.routes.js';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ connectMongoDB();
 
 //Auth Routes
 app.use('/api/auth', authRouter);
+app.use('/api/notes', notesRouter);
 
 const port = process.env.port || 8000;
 
